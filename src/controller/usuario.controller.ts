@@ -8,6 +8,23 @@ import { registrarLog } from '../utils/logger.js';
 import { transporter } from '../utils/email.js';
 
 export class UsuarioController {
+
+  async listar(req: Request, res: Response) {
+    try {
+      const usuarios = await prisma.usuario.findMany({
+        select: {
+          id: true,
+          nome: true,
+          email: true,
+          nivelAcesso: true,
+          ultimoLogin: true,
+        }
+      });
+      return res.status(200).json(usuarios);
+    } catch (error) {
+      return res.status(500).json({ erro: 'Falha ao listar os pilotos.' });
+    }
+  }
   
   async registrar(req: Request, res: Response) {
     const { nome, email, senha, nivelAcesso } = req.body;

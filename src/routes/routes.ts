@@ -16,6 +16,7 @@ router.post('/esqueci-senha', usuarioController.esqueciSenha);
 router.post('/resetar-senha', usuarioController.resetarSenha);
 
 // === ROTAS PROTEGIDAS (O pedágio "verificaToken" está ativado) ===
+router.get('/usuarios', verificaToken, usuarioController.listar);
 router.post('/carros', verificaToken, carroController.criar);
 router.get('/carros', verificaToken, carroController.listar);
 router.delete('/carros/:id', verificaToken, carroController.deletar);
